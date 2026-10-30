@@ -3,63 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="assets/favicon-pika.png">
+<link rel="apple-touch-icon" href="assets/favicon-pika.png">
 <title>투석기 포물선 실험실</title>
 <style>
-:root{--ke:#f08a24;--pe:#2f7fd8;--lost:#9aa3ad;--vx:#1b9e5a;--vy:#d6336c;--ink:#1f2933;--mute:#617080;--line:#d9e0e7;--card:#fff;--bg:#eef3f8}
+:root{--ke:#f59f1b;--pe:#3b82f6;--lost:#9ca3af;--vx:#12b76a;--vy:#e11d48;--ink:#111827;--mute:#6b7280;--line:#e5e7eb;--card:#fff;--red:#ee1515;--yellow:#ffcb05}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif}
-header{padding:12px 20px 0}
-h1{margin:0;font-size:22px}
-.hint{color:var(--mute);font-size:13px;margin-top:2px}
-kbd{background:#fff;border:1px solid #b9c3cf;border-bottom-width:2px;border-radius:5px;padding:0 6px;font:12px monospace}
-.wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;padding:10px 20px 20px;align-items:start}
-@media(max-width:950px){.wrap{grid-template-columns:1fr}}
-.col{display:flex;flex-direction:column;gap:14px;min-width:0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.card h2{margin:0 0 8px;font-size:15px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-#stage{height:clamp(300px,52vh,600px);padding:0;overflow:hidden}
+body{margin:0;color:var(--ink);font:15px/1.5 "Pretendard","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;background:radial-gradient(1100px 480px at 88% -8%,#ffe8a3 0,transparent 60%),radial-gradient(900px 480px at -8% -4%,#ffd5d5 0,transparent 55%),#f5f7fb;min-height:100vh}
+header{max-width:1400px;margin:0 auto;padding:22px 24px 4px;display:flex;align-items:center;gap:14px}
+.logo{width:46px;height:46px;flex:none}
+h1{margin:0;font-size:28px;font-weight:800;letter-spacing:-.5px}
+.deco{height:76px;margin-left:auto;filter:drop-shadow(0 8px 12px rgba(0,0,0,.2))}
+.mini{height:38px;margin:-6px 0 -6px 8px}
+.hint{color:var(--mute);font-size:13px;margin-top:4px}
+kbd{background:#fff;border:1px solid #d1d5db;border-bottom-width:2px;border-radius:6px;padding:1px 7px;font:12px ui-monospace,Consolas,monospace;color:#374151}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;max-width:1400px;margin:0 auto;padding:12px 24px 12px;align-items:start}
+@media(max-width:950px){.wrap{grid-template-columns:1fr}.deco{height:52px}h1{font-size:22px}}
+.col{display:flex;flex-direction:column;gap:20px;min-width:0}
+.card{background:var(--card);border:none;border-radius:20px;padding:16px 18px;box-shadow:0 1px 2px rgba(17,24,39,.05),0 14px 34px rgba(17,24,39,.08)}
+.card h2{margin:0 0 10px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:8px}
+#stage{height:clamp(300px,54vh,620px);padding:0;overflow:hidden}
 canvas{width:100%;height:100%;display:block}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
-.tile{background:#f6f9fc;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
-.tile .lab{font-size:12px;color:var(--mute)}
-.tile .val{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
-.tile .val small{font-size:12px;font-weight:400;color:var(--mute);margin-left:3px}
-.tile.big{border-width:2px}
-.tile.vx{border-color:var(--vx)}.tile.vx .val{color:var(--vx)}
-.tile.vy{border-color:var(--vy)}.tile.vy .val{color:var(--vy)}
-.row{margin-bottom:10px}
-.row label{display:flex;justify-content:space-between;font-size:13px;color:var(--mute)}
-.row label b{color:var(--ink);font-variant-numeric:tabular-nums}
-input[type=range]{width:100%;margin:2px 0 0}
-.btns{display:flex;gap:8px;margin:4px 0 10px}
-button{font:inherit;border:1px solid #b9c3cf;background:#fff;border-radius:8px;padding:8px 12px;cursor:pointer}
-button.go{flex:1;background:#e8590c;border-color:#e8590c;color:#fff;font-weight:700;font-size:16px}
-button:hover{filter:brightness(.96)}
-.chk{display:flex;align-items:center;gap:6px;font-size:14px;margin:4px 0;cursor:pointer}
-select{font:inherit;padding:3px 6px;border-radius:6px;border:1px solid #b9c3cf}
-.bar{display:flex;height:34px;border-radius:8px;overflow:hidden;background:#e6ebf0;border:1px solid var(--line)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
+.tile{background:var(--card);border-radius:16px;padding:12px 14px;box-shadow:0 1px 2px rgba(17,24,39,.05),0 10px 24px rgba(17,24,39,.07)}
+.tile .lab{font-size:12px;color:var(--mute);font-weight:600}
+.tile .val{font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.tile .val small{font-size:12px;font-weight:500;color:var(--mute);margin-left:4px}
+.tile.vx{background:linear-gradient(135deg,#e8fbf1,#fff 70%)}.tile.vx .val{color:var(--vx)}
+.tile.vy{background:linear-gradient(135deg,#ffe9ef,#fff 70%)}.tile.vy .val{color:var(--vy)}
+.row{margin-bottom:12px}
+.row label{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mute);font-weight:600}
+.row label b{color:var(--ink);font-variant-numeric:tabular-nums;background:#f3f4f6;border-radius:999px;padding:1px 10px}
+input[type=range]{width:100%;margin:6px 0 0;accent-color:var(--red);height:6px}
+.btns{display:flex;gap:10px;margin:6px 0 12px}
+button{font:inherit;border:1px solid #d1d5db;background:#fff;border-radius:999px;padding:9px 16px;cursor:pointer;font-weight:600;color:#374151;transition:transform .08s,box-shadow .15s}
+button:hover{box-shadow:0 4px 12px rgba(0,0,0,.1)}button:active{transform:scale(.97)}
+button.go{flex:1;background:linear-gradient(135deg,#ff4d4d,#ee1515);border-color:#ee1515;color:#fff;font-weight:800;font-size:16px;box-shadow:0 8px 18px rgba(238,21,21,.35)}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;margin:6px 0;cursor:pointer}
+.chk input{accent-color:var(--red);width:16px;height:16px}
+select{font:inherit;padding:4px 10px;border-radius:999px;border:1px solid #d1d5db;background:#fff}
+.bar{display:flex;height:38px;border-radius:12px;overflow:hidden;background:#eef0f3}
 .bar div{display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;transition:width .05s}
-#bKE{background:var(--ke)}#bPE{background:var(--pe)}
-#bLost{background:repeating-linear-gradient(45deg,#aab2bb,#aab2bb 5px,#c3c9d0 5px,#c3c9d0 10px)}
-.ecells{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:10px}
-.ecell{font-size:12px;color:var(--mute)}
-.ecell b{display:block;font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums}
-.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px}
-.res{display:grid;grid-template-columns:1fr auto;gap:3px 10px;font-size:14px}
+#bKE{background:linear-gradient(90deg,#f59f1b,#ff8a00)}#bPE{background:linear-gradient(90deg,#3b82f6,#2563eb)}
+#bLost{background:repeating-linear-gradient(45deg,#b6bcc6,#b6bcc6 5px,#cfd4dc 5px,#cfd4dc 10px)}
+.ecells{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:12px}
+.ecell{font-size:12px;color:var(--mute);background:#f9fafb;border-radius:12px;padding:8px 10px}
+.ecell b{display:block;font-size:20px;color:var(--ink);font-variant-numeric:tabular-nums}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+.res{display:grid;grid-template-columns:1fr auto;gap:5px 12px;font-size:14px}
 .res span:nth-child(odd){color:var(--mute)}
 .res span:nth-child(even){font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
-.note{font-size:12px;color:var(--mute);margin-top:8px}
+.note{font-size:12px;color:var(--mute);margin-top:10px}
+.copy{max-width:1400px;margin:0 auto;padding:6px 24px 28px;font-size:11px;color:#9ca3af;line-height:1.6}
 </style>
 </head>
 <body>
 <header>
-  <h1>🎯 투석기 포물선 실험실</h1>
+  <img class="logo" src="assets/pokeball.png" alt="">
+  <div>
+  <h1>투석기 포물선 실험실</h1>
   <div class="hint">
     <kbd>←</kbd><kbd>→</kbd> 힘(초기 속력) &nbsp;
     <kbd>↑</kbd><kbd>↓</kbd> 각도 &nbsp;
     (<kbd>Shift</kbd> 누르면 크게) &nbsp;
     <kbd>Space</kbd> 발사 &nbsp; <kbd>R</kbd> 기록 지우기
   </div>
+  </div>
+  <img class="deco" src="assets/p25.png" alt="">
 </header>
 
 <div class="wrap">
@@ -95,7 +105,7 @@ select{font:inherit;padding:3px 6px;border-radius:6px;border:1px solid #b9c3cf}
 
   <div class="col">
     <div class="card">
-      <h2>발사 설정</h2>
+      <h2><span>발사 설정</span><img class="mini" src="assets/p4.png" alt=""></h2>
       <div class="row"><label>초기 속력 (힘) <b id="oV"></b></label><input type="range" id="sV" min="0" max="40" step="0.1"></div>
       <div class="row"><label>발사 각도 <b id="oAng"></b></label><input type="range" id="sAng" min="0" max="90" step="1"></div>
       <div class="row"><label>발사 높이 <b id="oH0"></b></label><input type="range" id="sH0" min="0" max="3" step="0.1"></div>
@@ -117,7 +127,7 @@ select{font:inherit;padding:3px 6px;border-radius:6px;border:1px solid #b9c3cf}
     </div>
 
     <div class="card">
-      <h2>마지막 발사 결과</h2>
+      <h2><span>마지막 발사 결과</span><img class="mini" src="assets/p133.png" alt=""></h2>
       <div class="res">
         <span>사거리</span><span id="rRange">—</span>
         <span>비행 시간</span><span id="rTime">—</span>
@@ -129,9 +139,17 @@ select{font:inherit;padding:3px 6px;border-radius:6px;border:1px solid #b9c3cf}
     </div>
   </div>
 </div>
+<div class="copy">Pokémon and Pokémon character names are trademarks of Nintendo. © Nintendo · Creatures Inc. · GAME FREAK inc. 비영리 교육용 팬 제작물이며 공식 제품·서비스와 관련이 없습니다.</div>
 
 <script>
 const G = 9.80665;
+const MONS = [25, 133, 4, 7, 1, 39, 143, 150]; let shotNo = 0;
+const MIMG = {}; MONS.forEach(id => { const im = new Image(); im.src = 'assets/p' + id + '.png'; MIMG[id] = im; });
+const BALL = new Image(); BALL.src = 'assets/pokeball.png';
+function sprite(id, cx, bottom, size, alpha) {
+  const im = MIMG[id]; if (!im || !im.complete || !im.naturalWidth) return;
+  ctx.save(); ctx.globalAlpha = alpha; ctx.drawImage(im, cx - size / 2, bottom - size, size, size); ctx.restore();
+}
 const RHO = 101325 / (287.05 * 298.15);   // 1기압, 25 °C 건조 공기 ≈ 1.184 kg/m³
 const CD = 0.47;                          // 구의 항력계수
 const H = 1 / 240;                        // 물리 시간 간격(s)
@@ -140,7 +158,7 @@ const $ = id => document.getElementById(id);
 const P = { v: 15, ang: 45, h0: 0.5, m: 57, d: 6.7, air: true, ghost: true, bar: true, ts: 1 };
 const PRESETS = [
   ['탁구공', 2.7, 4.0], ['구긴 종이공', 5, 4.0], ['쇠구슬', 33, 2.0], ['테니스공', 57, 6.7],
-  ['야구공', 145, 7.4], ['축구공', 430, 22],
+  ['야구공', 145, 7.4], ['축구공', 430, 22], ['몬스터볼 (설정값)', 100, 7.0],
 ];
 const SL = { v: 'sV', ang: 'sAng', h0: 'sH0', m: 'sM', d: 'sD' };
 
@@ -240,7 +258,7 @@ function launch() {
     s: initState(), t: 0, k: kOf(), m, acc: 0, n: 0, landed: false,
     E0: 0.5 * m * P.v * P.v + m * G * P.h0,
     pts: [[0, P.h0]], maxY: P.h0, range: 0, vImp: 0,
-    air: P.air, vacRange: vacInfo.range,
+    air: P.air, vacRange: vacInfo.range, mon: MONS[shotNo++ % MONS.length],
   };
 }
 function clearAll() {
@@ -318,7 +336,8 @@ function draw() {
   hist.forEach(h => {
     path(h.pts, h.air ? 'rgba(60,80,110,.35)' : 'rgba(60,80,110,.2)', 2);
     ctx.fillStyle = 'rgba(40,60,90,.7)'; ctx.font = '11px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(h.range.toFixed(1), toX(h.range), gy - 5);
+    sprite(h.mon, toX(h.range), gy - 6, 30, 0.55);
+    ctx.fillText(h.range.toFixed(1), toX(h.range), gy + 14);
   });
 
   // 공기저항 없을 때(점선)
@@ -344,12 +363,13 @@ function draw() {
   ctx.globalAlpha = .45; arrow(bx, by, s[2] * as, -s[3] * as, '#444'); ctx.globalAlpha = 1;
   arrow(bx, by, s[2] * as, 0, '#1b9e5a', 'vₓ');
   arrow(bx, by, 0, -s[3] * as, '#d6336c', 'v_y');
-  ctx.fillStyle = '#ff9f1c'; ctx.strokeStyle = '#7a4a00'; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.arc(bx, by, 7, 0, 7); ctx.fill(); ctx.stroke();
+  if (BALL.complete && BALL.naturalWidth) { ctx.save(); ctx.translate(bx, by); ctx.rotate(cur ? cur.t * 8 : 0); ctx.drawImage(BALL, -10, -10, 20, 20); ctx.restore(); }
+  else { ctx.fillStyle = '#ee1515'; ctx.beginPath(); ctx.arc(bx, by, 8, 0, 7); ctx.fill(); }
 
   if (cur && cur.landed) {
     ctx.fillStyle = '#b02a00'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(cur.range.toFixed(2) + ' m', toX(cur.range), gy - 12);
+    sprite(cur.mon, toX(cur.range), gy - 4, 56, 1);
+    ctx.fillText(cur.range.toFixed(2) + ' m', toX(cur.range), gy - 64);
   }
 }
 
