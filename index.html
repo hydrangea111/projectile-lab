@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<meta name="robots" content="noindex, nofollow, noarchive">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="assets/favicon-pika.png">
@@ -56,6 +57,21 @@ select{font:inherit;padding:4px 10px;border-radius:999px;border:1px solid #d1d5d
 .note{font-size:12px;color:var(--mute);margin-top:10px}
 .copy{max-width:1400px;margin:0 auto;padding:6px 24px 28px;font-size:11px;color:#9ca3af;line-height:1.6}
 </style>
+<style>
+html[data-theme="dark"]{background:#fff;filter:invert(1) hue-rotate(180deg)}
+html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"] picture,html[data-theme="dark"] iframe{filter:invert(1) hue-rotate(180deg)}
+@media print{html[data-theme="dark"],html[data-theme="dark"] img{filter:none}}
+#theme-toggle{position:fixed;right:10px;bottom:10px;width:26px;height:26px;padding:0;border:0;border-radius:50%;background:transparent;color:inherit;font:14px/26px system-ui,sans-serif;text-align:center;cursor:pointer;opacity:.28;z-index:2147483000;transition:opacity .15s}
+#theme-toggle:hover,#theme-toggle:focus-visible{opacity:.85}
+@media print{#theme-toggle{display:none}}
+</style>
+<script>
+(function(){var r=document.documentElement,m=matchMedia('(prefers-color-scheme: dark)');
+function saved(){try{var s=localStorage.getItem('theme');return s==='light'||s==='dark'?s:null}catch(e){return null}}
+function apply(){r.dataset.theme=saved()||(m.matches?'dark':'light')}
+apply();m.addEventListener('change',apply);
+window.__toggleTheme=function(){var n=r.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('theme',n)}catch(e){}r.dataset.theme=n}})();
+</script>
 </head>
 <body>
 <header>
@@ -491,5 +507,6 @@ refreshPreview();
 syncLabels();
 requestAnimationFrame(frame);
 </script>
+<button id="theme-toggle" type="button" aria-label="다크 모드 전환" title="다크 모드 전환" onclick="__toggleTheme()">◐</button>
 </body>
 </html>
